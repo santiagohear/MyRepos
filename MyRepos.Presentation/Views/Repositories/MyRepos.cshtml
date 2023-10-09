@@ -1,0 +1,93 @@
+﻿@model RepositoriesViewModel
+@{
+    ViewData["Title"] = "My Repos";
+}
+
+<div class="text-center">
+    <h1 class="display-4">My Repositories</h1>
+</div>
+
+<div class="">
+    <nav>
+        <div class="nav nav-tabs justify-content-center" id="nav-tab" role="tablist">
+            <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">All My Repos</button>
+            <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Starred Repos</button>
+        </div>
+    </nav>
+    <div class="tab-content" id="nav-tabContent">
+        <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+            <div class="row">
+                @foreach(var repo in Model.allMyRepos)
+                {
+                    <div class="col-sm-6 p-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">@repo.name</h5>
+                                <p class="card-text">@repo.description</p>
+                            </div>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item"><b>Full name:</b> @repo.full_name</li>
+                                <li class="list-group-item"><b>Owner: </b>@repo.owner.login</li>
+                                @if (repo.Private)
+                                {
+                                    <li class="list-group-item"><p class="btn btn-outline-success">Private</p></li>
+                                }
+                                else
+                                {
+                                    <li class="list-group-item"><p class="btn btn-outline-danger">Public</p></li>
+                                }
+                                <li class="list-group-item"><b>Created At:</b> @repo.created_at.ToLongDateString()</li>
+                                <li class="list-group-item"><b>Last Update :</b> @repo.updated_at.ToLongDateString()</li>
+                                <li class="list-group-item"><a href="@repo.html_url" target="_blank">Go to repo</a></li>
+                            </ul>
+                            <div class="card-body text-center">
+                                @if (Model.starredRepos.Exists(r => r.id == repo.id))
+                                {
+                                    <a asp-controller="repositories" asp-action="unstarRepo" asp-route-repo="@repo.name" class="btn btn-success">Unstar</a>
+                                }
+                                else
+                                {
+                                    <a asp-controller="repositories" asp-action="starRepo" asp-route-repo="@repo.name" class="btn btn-warning">Star</a>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+            <div class="row">
+                @foreach (var repo in Model.starredRepos)
+                {
+                    <div class="col-sm-6 p-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">@repo.name</h5>
+                                <p class="card-text">@repo.description</p>
+                            </div>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item"><b>Full name:</b> @repo.full_name</li>
+                                <li class="list-group-item"><b>Owner: </b>@repo.owner.login</li>
+                                @if (repo.Private)
+                                {
+                                    <li class="list-group-item"><p class="btn btn-outline-success">Private</p></li>
+                                }
+                                else
+                                {
+                                    <li class="list-group-item"><p class="btn btn-outline-danger">Public</p></li>
+                                }
+                                <li class="list-group-item"><b>Created At:</b> @repo.created_at.ToLongDateString()</li>
+                                <li class="list-group-item"><b>Last Update :</b> @repo.updated_at.ToLongDateString()</li>
+                                <li class="list-group-item"><a href="@repo.html_url" target="_blank">Go to repo</a></li>
+                            </ul>
+                            <div class="card-body text-center">
+                                <a asp-controller="repositories" asp-action="unstarRepo" asp-route-repo="@repo.name" class="btn btn-success">Unstar</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+
+    </div>
+</div>

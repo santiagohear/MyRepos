@@ -1,0 +1,22 @@
+﻿@using MyRepos.Domain.Dictionary;
+@{
+    ViewData["Title"] = "My Repos";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Connect your repository</h1>
+    <p>Get yout repositories directly from GitHub</p>
+    <p>
+        Well, hello there!
+    </p>
+    <p>
+        Click here to connect to github. Ready?
+    </p>
+    <a class="btn btn-primary btn-lg" href="https://github.com/login/oauth/authorize?scope=repo&client_id=@Dictionary.ClientId">Connect</a>
+    <hr />
+    <p>
+        Also, you can configure a personal access token configured in your GitHub Account
+    </p>
+    <br/>
+    <a class="btn btn-secondary" asp-area="Identity" asp-page="/Account/Manage/GithubAccount" title="Configure your personal token">Configure</a>
+</div>
