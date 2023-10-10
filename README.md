@@ -20,10 +20,10 @@ ASP.NET Core Web Application:
    - .NET SDK 7.0 or later.
    - Visual Studio 14.0 or later.
 2. Download or clone the project.
-3. Change connection string from appsettings.json.
+3. Verify connection string from appsettings.json.
    ```json
    "ConnectionStrings": {
-      "DefaultConnection": "Server=(localdb)\\mssqllocaldb;Trusted_Connection=True;MultipleActiveResultSets=true"
+      "DefaultConnection": "Server=(localdb)\\mssqllocaldb;Database=aspnet-MyRepos.Presentation-74f595c6-a944-469b-a355-1f0cf7ed07be;Trusted_Connection=True;MultipleActiveResultSets=true"
    },
    ```
 5. Apply migrations in package manager console: (Make sure you selected MyRepos.Presentation project)
